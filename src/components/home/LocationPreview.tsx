@@ -66,9 +66,9 @@ export function LocationPreview() {
         )}
       >
         <div className="relative bg-gradient-to-br from-primary/5 via-background to-accent/5">
-          <div className="grid grid-cols-1 lg:grid-cols-5 min-h-screen">
+          <div className="grid grid-cols-1 lg:grid-cols-5 min-h-[calc(100vh-80px)]">
             {/* Left - Image Placeholder (flipped) */}
-            <div className="relative bg-gradient-to-br from-accent/10 via-primary/10 to-accent/5 order-1 min-h-[300px] md:min-h-[350px] lg:min-h-full lg:col-span-3 overflow-hidden">
+            <div className="relative bg-gradient-to-br from-accent/10 via-primary/10 to-accent/5 order-1 min-h-[320px] md:min-h-[450px] lg:min-h-full lg:col-span-3 overflow-hidden pt-20 lg:pt-0">
               {/* Animated background elements */}
               <div
                 className={cn(
@@ -153,7 +153,7 @@ export function LocationPreview() {
             </div>
 
             {/* Right - Description (flipped) */}
-            <div className="flex flex-col justify-center p-6 md:p-10 lg:p-12 xl:p-16 order-2 lg:col-span-2">
+            <div className="flex flex-col justify-center p-6 pb-20 md:p-10 lg:p-12 xl:p-16 lg:pb-16 order-2 lg:col-span-2">
               <div
                 key={currentBranch.id}
                 className={cn(

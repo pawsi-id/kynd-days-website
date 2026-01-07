@@ -68,7 +68,7 @@ export function ServicesPreview() {
         )}
       >
         <div className="relative bg-gradient-to-br from-background-light via-white to-accent/5">
-          <div className="grid grid-cols-1 lg:grid-cols-5 min-h-screen">
+          <div className="grid grid-cols-1 lg:grid-cols-5 min-h-[calc(100vh-80px)]">
             {/* Left - Description */}
             <div className="flex flex-col justify-center p-6 md:p-10 lg:p-12 xl:p-16 order-2 lg:order-1 lg:col-span-2">
               <div
