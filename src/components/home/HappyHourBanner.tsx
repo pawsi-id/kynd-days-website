@@ -1,13 +1,17 @@
 'use client';
 
 import Link from 'next/link';
-import { Clock, Sparkles, ArrowRight } from 'lucide-react';
+import { Clock, ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { happyHour } from '@/data/services';
+import { useInView } from '@/hooks/use-in-view';
+import { cn } from '@/lib/utils';
 
 export function HappyHourBanner() {
+  const { ref, isInView } = useInView({ threshold: 0.2 });
+
   return (
-    <section className="py-16 bg-gradient-to-r from-primary via-primary-dark to-primary relative overflow-hidden">
+    <section className="py-12 md:py-16 lg:py-20 bg-gradient-to-r from-primary via-primary-dark to-primary relative overflow-hidden">
       {/* Background Pattern */}
       <div className="absolute inset-0 opacity-10">
         <div
@@ -18,26 +22,26 @@ export function HappyHourBanner() {
         />
       </div>
 
-      {/* Floating Sparkles */}
-      <Sparkles className="absolute top-8 left-[10%] w-6 h-6 text-accent animate-float opacity-60" />
-      <Sparkles className="absolute bottom-8 right-[15%] w-5 h-5 text-accent-light animate-float delay-300 opacity-50" />
-      <Sparkles className="absolute top-12 right-[25%] w-4 h-4 text-white/40 animate-float delay-500" />
-
-      <div className="container-custom relative z-10">
-        <div className="flex flex-col lg:flex-row items-center justify-between gap-8">
+      <div ref={ref} className="container-custom relative z-10">
+        <div className="flex flex-col lg:flex-row items-center justify-between gap-6 md:gap-8">
           {/* Content */}
-          <div className="text-center lg:text-left">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent/20 text-accent mb-4">
+          <div
+            className={cn(
+              'text-center lg:text-left animate-slide-left',
+              isInView && 'in-view'
+            )}
+          >
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-accent/20 text-accent mb-4">
               <Clock className="w-4 h-4" />
               <span className="text-sm font-medium">Promo Terbatas</span>
             </div>
 
-            <h2 className="font-heading text-3xl md:text-4xl lg:text-5xl text-white font-semibold mb-4">
+            <h2 className="font-heading text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-white font-semibold mb-3 md:mb-4">
               Happy Hour{' '}
               <span className="text-accent">{happyHour.discount}% OFF!</span>
             </h2>
 
-            <p className="text-white/80 text-lg max-w-xl">
+            <p className="text-white/80 text-base md:text-lg max-w-xl">
               Nikmati diskon spesial untuk semua layanan pijat dan refleksi.
               Berlaku setiap <span className="text-accent font-medium">{happyHour.days}</span>,
               pukul <span className="text-accent font-medium">{happyHour.startTime} - {happyHour.endTime}</span>.
@@ -45,11 +49,17 @@ export function HappyHourBanner() {
           </div>
 
           {/* CTA */}
-          <div className="flex flex-col sm:flex-row items-center gap-4">
+          <div
+            className={cn(
+              'flex flex-col sm:flex-row items-center gap-3 md:gap-4 mt-2 lg:mt-0 animate-slide-right',
+              isInView && 'in-view'
+            )}
+            style={{ transitionDelay: '150ms' }}
+          >
             <Link href="/harga">
               <Button
                 size="lg"
-                className="bg-accent hover:bg-accent-light text-primary-dark px-8 py-6 text-lg font-semibold btn-elegant"
+                className="bg-accent hover:bg-accent-light text-primary-dark px-8 py-6 text-lg font-semibold"
               >
                 Lihat Harga Happy Hour
                 <ArrowRight className="w-5 h-5 ml-2" />
@@ -57,9 +67,8 @@ export function HappyHourBanner() {
             </Link>
             <Link href="/reservasi">
               <Button
-                variant="outline"
                 size="lg"
-                className="border-white/30 text-white hover:bg-white/10 px-8 py-6 text-lg"
+                className="bg-white text-primary-dark hover:bg-white/90 px-8 py-6 text-lg font-semibold"
               >
                 Reservasi
               </Button>

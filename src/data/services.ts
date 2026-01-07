@@ -126,25 +126,25 @@ export const vipCoupleRoom = {
 
 export const branches: Branch[] = [
   {
-    id: 'branch-1',
-    name: 'Kynd Days Cabang 1',
-    address: 'Jl. Contoh No. 123, Jakarta Selatan',
-    phone: '+62 21 1234 5678',
-    whatsapp: '6281234567890',
+    id: 'gading-serpong',
+    name: 'Kynd Days Gading Serpong',
+    address: 'Ruko Aniva Grande Paramount Land, Blok GA No.7, Cijantra, Pagedangan, Tangerang Regency, Banten 15334',
+    phone: '0896-0200-9669',
+    whatsapp: '6289602009669',
   },
   {
-    id: 'branch-2',
-    name: 'Kynd Days Cabang 2',
-    address: 'Jl. Sample No. 456, Jakarta Barat',
-    phone: '+62 21 8765 4321',
-    whatsapp: '6289876543210',
+    id: 'alam-sutera',
+    name: 'Kynd Days Alam Sutera',
+    address: 'Alam Sutera, Ruko Woodlake.7, Panunggangan Tim., Kec. Pinang, Kota Tangerang, Banten 15143',
+    phone: '0877-2276-9027',
+    whatsapp: '6287722769027',
   },
   {
-    id: 'branch-3',
-    name: 'Kynd Days Cabang 3',
-    address: 'Jl. Demo No. 789, Jakarta Utara',
-    phone: '+62 21 1357 2468',
-    whatsapp: '6281357246890',
+    id: 'bsd',
+    name: 'Kynd Days BSD',
+    address: 'Ruko Tol Boulevard, Rw. Buntu, Kec. Serpong, Tangerang, Banten 15318',
+    phone: '0819-5723-1717',
+    whatsapp: '6281957231717',
   },
 ];
 
@@ -189,7 +189,6 @@ export const navItems: NavItem[] = [
   { label: 'Harga', href: '/harga' },
   { label: 'Tentang Kami', href: '/tentang-kami' },
   { label: 'Galeri', href: '/galeri' },
-  { label: 'Kontak', href: '/kontak' },
 ];
 
 export const businessHours = {

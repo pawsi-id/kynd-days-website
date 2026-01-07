@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Menu, X } from 'lucide-react';
+import { Menu } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { navItems } from '@/data/services';
@@ -32,21 +32,9 @@ export function Navbar() {
       <div className="container-custom">
         <nav className="flex items-center justify-between">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-3 group">
-            <div className="relative">
-              {/* Logo Icon */}
-              <svg
-                viewBox="0 0 60 50"
-                className="w-10 h-8 text-primary transition-transform duration-300 group-hover:scale-105"
-                fill="currentColor"
-              >
-                <path d="M30 5c-8 0-14.5 6-14.5 13.5S22 32 30 32s14.5-6 14.5-13.5S38 5 30 5zm0 22c-5.5 0-10-4-10-9s4.5-9 10-9 10 4 10 9-4.5 9-10 9z" />
-                <ellipse cx="18" cy="18" rx="8" ry="10" />
-                <ellipse cx="42" cy="18" rx="8" ry="10" />
-              </svg>
-            </div>
+          <Link href="/" className="flex items-center group">
             <div className="flex flex-col">
-              <span className="font-heading text-xl font-semibold text-primary tracking-wide">
+              <span className="font-heading text-xl font-semibold text-primary tracking-wide transition-transform duration-300 group-hover:scale-105">
                 kynd days
               </span>
               <span className="text-[10px] text-primary-light tracking-[0.2em] uppercase">
@@ -88,29 +76,28 @@ export function Navbar() {
           {/* Mobile Menu */}
           <Sheet open={isOpen} onOpenChange={setIsOpen}>
             <SheetTrigger asChild className="lg:hidden">
-              <Button variant="ghost" size="icon" className="text-primary">
+              <Button variant="ghost" size="icon" className="text-primary min-h-[44px] min-w-[44px]">
                 <Menu className="h-6 w-6" />
-                <span className="sr-only">Open menu</span>
+                <span className="sr-only">Buka menu</span>
               </Button>
             </SheetTrigger>
-            <SheetContent side="right" className="w-[300px] bg-background-light p-0">
+            <SheetContent side="left" className="w-full sm:max-w-sm bg-background-light p-0 border-r-0">
               <div className="flex flex-col h-full">
-                {/* Mobile Header */}
-                <div className="flex items-center justify-between p-6 border-b border-border">
-                  <span className="font-heading text-lg text-primary">kynd days</span>
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    onClick={() => setIsOpen(false)}
-                    className="text-primary"
-                  >
-                    <X className="h-5 w-5" />
-                  </Button>
+                {/* Mobile Header with Logo */}
+                <div className="flex items-center p-6 border-b border-border/50 bg-gradient-to-r from-primary/5 to-transparent">
+                  <div className="flex flex-col">
+                    <span className="font-heading text-lg font-semibold text-primary">
+                      kynd days
+                    </span>
+                    <span className="text-[9px] text-primary-light tracking-[0.15em] uppercase">
+                      Massage & Reflexology
+                    </span>
+                  </div>
                 </div>
 
                 {/* Mobile Navigation Links */}
-                <nav className="flex-1 px-6 py-8">
-                  <ul className="space-y-4">
+                <nav className="flex-1 py-4 overflow-y-auto">
+                  <ul className="space-y-1 px-3">
                     {navItems.map((item, index) => (
                       <li
                         key={item.href}
@@ -121,13 +108,18 @@ export function Navbar() {
                           href={item.href}
                           onClick={() => setIsOpen(false)}
                           className={cn(
-                            'block py-3 text-lg font-medium transition-colors',
+                            'flex items-center gap-3 px-4 py-3.5 rounded-xl text-base font-medium transition-all min-h-[48px]',
                             pathname === item.href
-                              ? 'text-primary'
-                              : 'text-foreground/70 hover:text-primary'
+                              ? 'bg-primary/10 text-primary'
+                              : 'text-foreground/70 hover:bg-primary/5 hover:text-primary active:bg-primary/10'
                           )}
                         >
-                          {item.label}
+                          {pathname === item.href && (
+                            <span className="w-1 h-5 bg-primary rounded-full" />
+                          )}
+                          <span className={pathname === item.href ? '' : 'pl-4'}>
+                            {item.label}
+                          </span>
                         </Link>
                       </li>
                     ))}
@@ -135,12 +127,15 @@ export function Navbar() {
                 </nav>
 
                 {/* Mobile CTA */}
-                <div className="p-6 border-t border-border">
+                <div className="p-4 border-t border-border/50 bg-gradient-to-t from-primary/5 to-transparent">
                   <Link href="/reservasi" onClick={() => setIsOpen(false)}>
-                    <Button className="w-full bg-primary hover:bg-primary-dark text-white">
+                    <Button className="w-full bg-primary hover:bg-primary-dark text-white min-h-[48px] text-base font-medium shadow-md">
                       Reservasi Sekarang
                     </Button>
                   </Link>
+                  <p className="text-center text-xs text-muted-foreground mt-3">
+                    Buka setiap hari 10:00 - 22:00
+                  </p>
                 </div>
               </div>
             </SheetContent>

@@ -9,19 +9,42 @@ export function WhatsAppButton() {
   const [isHovered, setIsHovered] = useState(false);
 
   useEffect(() => {
+    let timeoutId: NodeJS.Timeout;
+
     const handleScroll = () => {
-      setIsVisible(window.scrollY > 300);
+      const scrolled = window.scrollY > 300;
+      const footer = document.querySelector('footer');
+
+      if (footer) {
+        const footerRect = footer.getBoundingClientRect();
+        const windowHeight = window.innerHeight;
+
+        // Hide button when footer enters viewport (with small buffer)
+        const isFooterVisible = footerRect.top <= windowHeight - 20;
+
+        // Show button only if scrolled AND footer is not visible
+        setIsVisible(scrolled && !isFooterVisible);
+      } else {
+        setIsVisible(scrolled);
+      }
     };
 
-    // Show after initial delay
-    const timer = setTimeout(() => {
-      handleScroll();
-      window.addEventListener('scroll', handleScroll);
-    }, 1000);
+    // Debounced scroll handler
+    const scrollHandler = () => {
+      clearTimeout(timeoutId);
+      timeoutId = setTimeout(handleScroll, 10);
+    };
+
+    // Initial check
+    handleScroll();
+
+    window.addEventListener('scroll', scrollHandler, { passive: true });
+    window.addEventListener('resize', handleScroll, { passive: true });
 
     return () => {
-      clearTimeout(timer);
-      window.removeEventListener('scroll', handleScroll);
+      clearTimeout(timeoutId);
+      window.removeEventListener('scroll', scrollHandler);
+      window.removeEventListener('resize', handleScroll);
     };
   }, []);
 
