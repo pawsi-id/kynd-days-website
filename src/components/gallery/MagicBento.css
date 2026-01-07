@@ -1,13 +1,14 @@
 :root {
-  --hue: 27;
-  --sat: 69%;
-  --white: hsl(0, 0%, 100%);
-  --purple-primary: rgba(132, 0, 255, 1);
-  --purple-glow: rgba(132, 0, 255, 0.2);
-  --purple-border: rgba(132, 0, 255, 0.8);
-  --border-color: #392e4e;
-  --background-dark: #060010;
-  color-scheme: light dark;
+  --kynd-primary: rgba(125, 107, 93, 1);
+  --kynd-primary-glow: rgba(125, 107, 93, 0.25);
+  --kynd-primary-border: rgba(125, 107, 93, 0.3);
+  --kynd-accent: rgba(196, 167, 125, 1);
+  --kynd-accent-glow: rgba(196, 167, 125, 0.4);
+  --kynd-border-color: rgba(212, 207, 201, 0.8);
+  --kynd-background: #EDE8E3;
+  --kynd-background-card: #FFFFFF;
+  --kynd-text: #4A4A4A;
+  --kynd-text-muted: rgba(74, 74, 74, 0.7);
 }
 
 .card-grid {
@@ -29,8 +30,8 @@
   max-width: 100%;
   padding: 1.25em;
   border-radius: 20px;
-  border: 1px solid var(--border-color);
-  background: var(--background-dark);
+  border: 1px solid var(--kynd-border-color);
+  background: var(--kynd-background-card);
   font-weight: 300;
   overflow: hidden;
   transition: all 0.3s ease;
@@ -43,14 +44,14 @@
 
 .magic-bento-card:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 8px 30px rgba(125, 107, 93, 0.15);
 }
 
 .magic-bento-card__header,
 .magic-bento-card__content {
   display: flex;
   position: relative;
-  color: var(--white);
+  color: var(--kynd-text);
 }
 
 .magic-bento-card__header {
@@ -63,7 +64,11 @@
 }
 
 .magic-bento-card__label {
-  font-size: 16px;
+  font-size: 12px;
+  color: var(--kynd-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-weight: 500;
 }
 
 .magic-bento-card__title,
@@ -73,15 +78,16 @@
 }
 
 .magic-bento-card__title {
-  font-weight: 400;
-  font-size: 16px;
+  font-weight: 500;
+  font-size: 18px;
   margin: 0 0 0.25em;
+  color: var(--kynd-text);
 }
 
 .magic-bento-card__description {
-  font-size: 12px;
-  line-height: 1.2;
-  opacity: 0.9;
+  font-size: 13px;
+  line-height: 1.4;
+  color: var(--kynd-text-muted);
 }
 
 .magic-bento-card--text-autohide .magic-bento-card__title,
@@ -102,26 +108,51 @@
   line-clamp: var(--clamp-desc);
 }
 
+/* Mobile - 2 columns */
 @media (max-width: 599px) {
   .card-grid {
-    grid-template-columns: 1fr;
-    width: 90%;
+    grid-template-columns: repeat(2, 1fr);
+    width: 100%;
     margin: 0 auto;
-    padding: 0.5em;
+    padding: 0;
+    gap: 0.5em;
   }
 
   .magic-bento-card {
     width: 100%;
+    min-height: 140px;
+    padding: 0.875em;
+    border-radius: 12px;
+    aspect-ratio: 1;
+  }
+
+  .magic-bento-card__label {
+    font-size: 10px;
+  }
+
+  .magic-bento-card__title {
+    font-size: 14px;
+  }
+
+  .magic-bento-card__description {
+    font-size: 11px;
+    display: none;
+  }
+}
+
+/* Tablet - 2 columns */
+@media (min-width: 600px) {
+  .card-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75em;
+  }
+
+  .magic-bento-card {
     min-height: 180px;
   }
 }
 
-@media (min-width: 600px) {
-  .card-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
+/* Desktop - 4 columns bento layout */
 @media (min-width: 1024px) {
   .card-grid {
     grid-template-columns: repeat(4, 1fr);
@@ -143,7 +174,7 @@
   }
 }
 
-/* Border glow effect */
+/* Border glow effect - Kynd Days theme */
 .magic-bento-card--border-glow::after {
   content: '';
   position: absolute;
@@ -151,8 +182,8 @@
   padding: 6px;
   background: radial-gradient(
     var(--glow-radius) circle at var(--glow-x) var(--glow-y),
-    rgba(132, 0, 255, calc(var(--glow-intensity) * 0.8)) 0%,
-    rgba(132, 0, 255, calc(var(--glow-intensity) * 0.4)) 30%,
+    rgba(125, 107, 93, calc(var(--glow-intensity) * 0.6)) 0%,
+    rgba(196, 167, 125, calc(var(--glow-intensity) * 0.4)) 30%,
     transparent 60%
   );
   border-radius: inherit;
@@ -176,8 +207,8 @@
 
 .magic-bento-card--border-glow:hover {
   box-shadow:
-    0 4px 20px rgba(46, 24, 78, 0.4),
-    0 0 30px var(--purple-glow);
+    0 4px 20px rgba(125, 107, 93, 0.2),
+    0 0 25px rgba(196, 167, 125, 0.25);
 }
 
 .particle-container {
@@ -192,15 +223,15 @@
   left: -2px;
   right: -2px;
   bottom: -2px;
-  background: rgba(132, 0, 255, 0.2);
+  background: rgba(125, 107, 93, 0.3);
   border-radius: 50%;
   z-index: -1;
 }
 
 .particle-container:hover {
   box-shadow:
-    0 4px 20px rgba(46, 24, 78, 0.2),
-    0 0 30px var(--purple-glow);
+    0 4px 20px rgba(125, 107, 93, 0.15),
+    0 0 25px rgba(196, 167, 125, 0.2);
 }
 
 /* Global spotlight styles */

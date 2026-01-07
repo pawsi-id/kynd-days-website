@@ -1,7 +1,6 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { MessageCircle } from 'lucide-react';
 import { branches } from '@/data/services';
 
 export function WhatsAppButton() {

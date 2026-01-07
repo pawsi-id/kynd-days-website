@@ -6,6 +6,7 @@ import { Camera, Filter, ArrowRight, Sparkles, MapPin } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Lightbox } from '@/components/gallery/Lightbox';
+import MagicBento from '@/components/gallery/MagicBento';
 import { useInView } from '@/hooks/use-in-view';
 import { cn } from '@/lib/utils';
 
@@ -239,6 +240,34 @@ export default function GaleriPage() {
               <p className="text-foreground/60">Tidak ada gambar untuk kategori ini</p>
             </div>
           )}
+        </div>
+      </section>
+
+      {/* Magic Bento Gallery Section */}
+      <section className="py-8 md:py-16 bg-background-light">
+        <div className="container-custom">
+          <div className="text-center mb-8">
+            <span className="text-accent text-xs md:text-sm font-medium tracking-wider uppercase mb-3 md:mb-4 block">
+              Highlights
+            </span>
+            <h2 className="font-heading text-2xl sm:text-3xl md:text-4xl text-primary font-semibold mb-4">
+              Fasilitas Unggulan
+            </h2>
+            <p className="text-foreground/60 text-sm md:text-base max-w-2xl mx-auto">
+              Nikmati berbagai fasilitas premium yang kami sediakan untuk kenyamanan Anda
+            </p>
+          </div>
+          <div className="flex justify-center">
+            <MagicBento
+              glowColor="125, 107, 93"
+              enableSpotlight={true}
+              enableBorderGlow={true}
+              enableStars={true}
+              enableTilt={false}
+              clickEffect={true}
+              enableMagnetism={true}
+            />
+          </div>
         </div>
       </section>
 

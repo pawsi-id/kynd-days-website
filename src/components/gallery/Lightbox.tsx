@@ -25,6 +25,16 @@ export function Lightbox({
   const [isZoomed, setIsZoomed] = useState(false);
   const [touchStart, setTouchStart] = useState<number | null>(null);
 
+  const handlePrevious = useCallback(() => {
+    setIsZoomed(false);
+    onPrevious();
+  }, [onPrevious]);
+
+  const handleNext = useCallback(() => {
+    setIsZoomed(false);
+    onNext();
+  }, [onNext]);
+
   const handleKeyDown = useCallback(
     (e: KeyboardEvent) => {
       if (!isOpen) return;
@@ -34,14 +44,14 @@ export function Lightbox({
           onClose();
           break;
         case 'ArrowLeft':
-          onPrevious();
+          handlePrevious();
           break;
         case 'ArrowRight':
-          onNext();
+          handleNext();
           break;
       }
     },
-    [isOpen, onClose, onPrevious, onNext]
+    [isOpen, onClose, handlePrevious, handleNext]
   );
 
   // Touch handlers for swipe
@@ -57,9 +67,9 @@ export function Lightbox({
 
     if (Math.abs(diff) > 50) {
       if (diff > 0) {
-        onNext();
+        handleNext();
       } else {
-        onPrevious();
+        handlePrevious();
       }
     }
     setTouchStart(null);
@@ -75,7 +85,6 @@ export function Lightbox({
       document.body.style.overflow = 'hidden';
     } else {
       document.body.style.overflow = '';
-      setIsZoomed(false);
     }
     return () => {
       document.body.style.overflow = '';
@@ -131,7 +140,7 @@ export function Lightbox({
       <Button
         variant="ghost"
         size="icon"
-        onClick={onPrevious}
+        onClick={handlePrevious}
         className="hidden md:flex absolute left-4 top-1/2 -translate-y-1/2 z-10 text-white hover:bg-white/10 w-14 h-14 rounded-full bg-black/30 backdrop-blur-sm"
       >
         <ChevronLeft className="w-8 h-8" />
@@ -140,7 +149,7 @@ export function Lightbox({
       <Button
         variant="ghost"
         size="icon"
-        onClick={onNext}
+        onClick={handleNext}
         className="hidden md:flex absolute right-4 top-1/2 -translate-y-1/2 z-10 text-white hover:bg-white/10 w-14 h-14 rounded-full bg-black/30 backdrop-blur-sm"
       >
         <ChevronRight className="w-8 h-8" />

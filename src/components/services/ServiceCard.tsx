@@ -36,7 +36,7 @@ export function ServiceCard({ service, showHappyHour = false }: ServiceCardProps
   return (
     <div
       id={service.id}
-      className="group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 scroll-mt-32"
+      className="group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 scroll-mt-48"
     >
       {/* Header */}
       <div className="relative h-44 bg-gradient-to-br from-primary/5 via-background-light to-accent/5 overflow-hidden">

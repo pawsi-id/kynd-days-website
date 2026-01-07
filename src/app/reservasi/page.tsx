@@ -1,12 +1,11 @@
 'use client';
 
-import { useState, useEffect, useRef, Suspense } from 'react';
+import { useState, useRef, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import {
   Check,
   ChevronLeft,
   ChevronRight,
-  Clock,
   Calendar as CalendarIcon,
   MapPin,
   User,
@@ -46,30 +45,20 @@ function BookingContent() {
   const timeSlotsRef = useRef<HTMLDivElement>(null);
   const navigationRef = useRef<HTMLDivElement>(null);
 
-  const [formData, setFormData] = useState({
-    serviceId: '',
-    duration: 0,
+  // Pre-fill from URL params
+  const serviceIdParam = searchParams.get('service');
+  const durationParam = searchParams.get('duration');
+
+  const [formData, setFormData] = useState(() => ({
+    serviceId: serviceIdParam || '',
+    duration: durationParam ? parseInt(durationParam) : 0,
     date: undefined as Date | undefined,
     time: '',
     branchId: '',
     name: '',
     phone: '',
     notes: '',
-  });
-
-  // Pre-fill from URL params
-  useEffect(() => {
-    const serviceId = searchParams.get('service');
-    const duration = searchParams.get('duration');
-
-    if (serviceId) {
-      setFormData((prev) => ({
-        ...prev,
-        serviceId,
-        duration: duration ? parseInt(duration) : 0,
-      }));
-    }
-  }, [searchParams]);
+  }));
 
   const selectedService = services.find((s) => s.id === formData.serviceId);
   const selectedDuration = selectedService?.durations.find(
