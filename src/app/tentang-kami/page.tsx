@@ -374,23 +374,12 @@ export default function TentangKamiPage() {
               Kunjungi salah satu cabang kami dan rasakan pengalaman relaksasi
               yang tak terlupakan bersama Kynd Days
             </p>
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <Link href="/reservasi">
-                <Button size="lg" className="bg-accent hover:bg-accent-light text-primary-dark px-8 py-6 text-base btn-elegant">
-                  Reservasi Sekarang
-                  <ArrowRight className="w-4 h-4 ml-2" />
-                </Button>
-              </Link>
-              <Link href="/kontak">
-                <Button
-                  size="lg"
-                  variant="outline"
-                  className="border-white/30 text-white hover:bg-white/10 px-8 py-6 text-base"
-                >
-                  Kunjungi Kami
-                </Button>
-              </Link>
-            </div>
+            <Link href="/reservasi">
+              <Button size="lg" className="bg-accent hover:bg-accent-light text-primary-dark px-8 py-6 text-base btn-elegant">
+                Reservasi Sekarang
+                <ArrowRight className="w-4 h-4 ml-2" />
+              </Button>
+            </Link>
           </div>
         </div>
       </section>

@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
-import { Clock, Star } from 'lucide-react';
+import { Star, Clock } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Service } from '@/types';
@@ -38,24 +38,8 @@ export function ServiceCard({ service, showHappyHour = false }: ServiceCardProps
       id={service.id}
       className="group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 scroll-mt-32"
     >
-      {/* Image Placeholder */}
-      <div className="relative h-48 bg-gradient-to-br from-background-light to-background overflow-hidden">
-        <div className="absolute inset-0 flex items-center justify-center">
-          <div className="w-20 h-20 rounded-full bg-primary/10 flex items-center justify-center">
-            <svg
-              className="w-10 h-10 text-primary"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="1.5"
-            >
-              <path d="M12 3c-1.5 2-3 3.5-3 6 0 2.5 1.5 4 3 4s3-1.5 3-4c0-2.5-1.5-4-3-6z" />
-              <path d="M12 13v8" />
-              <path d="M8 17h8" />
-            </svg>
-          </div>
-        </div>
-
+      {/* Header */}
+      <div className="relative h-44 bg-gradient-to-br from-primary/5 via-background-light to-accent/5 overflow-hidden">
         {/* Popular Badge */}
         {service.isPopular && (
           <Badge className="absolute top-4 right-4 bg-accent text-white border-0">

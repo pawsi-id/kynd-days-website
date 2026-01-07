@@ -16,7 +16,7 @@ const categories = [
 ];
 
 const highlights = [
-  { icon: Award, label: 'Terapis Bersertifikat', value: '10+ Tahun' },
+  { icon: Award, label: 'Terapis Bersertifikat', value: '2+ Tahun' },
   { icon: Users, label: 'Pelanggan Puas', value: '5000+' },
   { icon: Clock, label: 'Jam Operasional', value: '10:00 - 22:00' },
 ];

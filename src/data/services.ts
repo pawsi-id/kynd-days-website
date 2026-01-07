@@ -186,7 +186,6 @@ export const testimonials: Testimonial[] = [
 export const navItems: NavItem[] = [
   { label: 'Beranda', href: '/' },
   { label: 'Layanan', href: '/layanan' },
-  { label: 'Harga', href: '/harga' },
   { label: 'Tentang Kami', href: '/tentang-kami' },
   { label: 'Galeri', href: '/galeri' },
 ];

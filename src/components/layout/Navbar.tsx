@@ -5,7 +5,8 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Menu } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
+import { Sheet, SheetContent, SheetTrigger, SheetTitle } from '@/components/ui/sheet';
+import { VisuallyHidden } from '@radix-ui/react-visually-hidden';
 import { navItems } from '@/data/services';
 import { cn } from '@/lib/utils';
 
@@ -82,6 +83,9 @@ export function Navbar() {
               </Button>
             </SheetTrigger>
             <SheetContent side="left" className="w-full sm:max-w-sm bg-background-light p-0 border-r-0">
+              <VisuallyHidden>
+                <SheetTitle>Menu Navigasi</SheetTitle>
+              </VisuallyHidden>
               <div className="flex flex-col h-full">
                 {/* Mobile Header with Logo */}
                 <div className="flex items-center p-6 border-b border-border/50 bg-gradient-to-r from-primary/5 to-transparent">
@@ -108,9 +112,9 @@ export function Navbar() {
                           href={item.href}
                           onClick={() => setIsOpen(false)}
                           className={cn(
-                            'flex items-center gap-3 px-4 py-3.5 rounded-xl text-base font-medium transition-all min-h-[48px]',
+                            'flex items-center gap-3 px-4 py-3.5 rounded-xl font-heading text-lg transition-all min-h-[48px]',
                             pathname === item.href
-                              ? 'bg-primary/10 text-primary'
+                              ? 'bg-primary/10 text-primary font-semibold'
                               : 'text-foreground/70 hover:bg-primary/5 hover:text-primary active:bg-primary/10'
                           )}
                         >
@@ -129,7 +133,7 @@ export function Navbar() {
                 {/* Mobile CTA */}
                 <div className="p-4 border-t border-border/50 bg-gradient-to-t from-primary/5 to-transparent">
                   <Link href="/reservasi" onClick={() => setIsOpen(false)}>
-                    <Button className="w-full bg-primary hover:bg-primary-dark text-white min-h-[48px] text-base font-medium shadow-md">
+                    <Button className="w-full bg-primary hover:bg-primary-dark text-white min-h-[48px] font-heading text-lg shadow-md">
                       Reservasi Sekarang
                     </Button>
                   </Link>
