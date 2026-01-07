@@ -16,19 +16,6 @@ export const services: Service[] = [
     isPopular: true,
   },
   {
-    id: 'thai-massage',
-    name: 'Thai Massage',
-    nameId: 'Pijat Thai',
-    description: 'Traditional Thai massage using stretching and pressure point techniques',
-    descriptionId: 'Pijat Thai tradisional menggunakan teknik peregangan dan titik tekanan',
-    durations: [
-      { minutes: 60, price: 175, happyHourPrice: 149 },
-      { minutes: 90, price: 235, happyHourPrice: 200 },
-      { minutes: 120, price: 290, happyHourPrice: 247 },
-    ],
-    category: 'massage',
-  },
-  {
     id: 'aromatherapy-massage',
     name: 'Kynd Days Aromatherapy Massage',
     nameId: 'Pijat Aromaterapi Kynd Days',
@@ -41,6 +28,19 @@ export const services: Service[] = [
     ],
     category: 'massage',
     isPopular: true,
+  },
+  {
+    id: 'thai-massage',
+    name: 'Thai Massage',
+    nameId: 'Pijat Thai',
+    description: 'Traditional Thai massage using stretching and pressure point techniques',
+    descriptionId: 'Pijat Thai tradisional menggunakan teknik peregangan dan titik tekanan',
+    durations: [
+      { minutes: 60, price: 175, happyHourPrice: 149 },
+      { minutes: 90, price: 235, happyHourPrice: 200 },
+      { minutes: 120, price: 290, happyHourPrice: 247 },
+    ],
+    category: 'massage',
   },
   {
     id: 'reflexology',

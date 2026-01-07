@@ -2,7 +2,7 @@
 
 import { useState, useRef } from 'react';
 import Link from 'next/link';
-import { Sparkles, Clock, Check, ArrowRight, Crown, Star } from 'lucide-react';
+import { Sparkles, Clock, Check, ArrowRight, Crown, Star, Sun } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
@@ -95,7 +95,7 @@ export default function HargaPage() {
                     : 'text-foreground/70 hover:bg-background-light'
                 )}
               >
-                <Sparkles className="w-3.5 h-3.5 md:w-4 md:h-4" />
+                <Sun className="w-3.5 h-3.5 md:w-4 md:h-4" />
                 <span className="hidden sm:inline">Happy Hour</span>
                 <span className="sm:hidden">Promo</span>
               </button>
@@ -251,7 +251,7 @@ export default function HargaPage() {
               additionalTableInView && 'in-view'
             )}
           >
-            <Card className="border-0 shadow-lg overflow-hidden">
+            <Card className="border-0 shadow-lg overflow-hidden py-0 gap-0">
               {/* Desktop Table */}
               <div className="hidden sm:block">
                 <table className="w-full">

@@ -1,8 +1,8 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
-import { Clock, Star, ChevronDown, ChevronUp } from 'lucide-react';
+import { Clock, Star } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Service } from '@/types';
@@ -14,8 +14,24 @@ interface ServiceCardProps {
 }
 
 export function ServiceCard({ service, showHappyHour = false }: ServiceCardProps) {
-  const [isExpanded, setIsExpanded] = useState(false);
   const [selectedDuration, setSelectedDuration] = useState(service.durations[0]);
+  const [isAnimating, setIsAnimating] = useState(false);
+  const prevPriceRef = useRef(selectedDuration.price);
+
+  const handleDurationChange = (duration: typeof selectedDuration) => {
+    if (duration.minutes !== selectedDuration.minutes) {
+      setIsAnimating(true);
+      prevPriceRef.current = selectedDuration.price;
+      setSelectedDuration(duration);
+    }
+  };
+
+  useEffect(() => {
+    if (isAnimating) {
+      const timer = setTimeout(() => setIsAnimating(false), 300);
+      return () => clearTimeout(timer);
+    }
+  }, [isAnimating]);
 
   return (
     <div
@@ -70,7 +86,7 @@ export function ServiceCard({ service, showHappyHour = false }: ServiceCardProps
             {service.durations.map((duration) => (
               <button
                 key={duration.minutes}
-                onClick={() => setSelectedDuration(duration)}
+                onClick={() => handleDurationChange(duration)}
                 className={cn(
                   'px-3 py-1.5 rounded-full text-sm font-medium transition-all',
                   selectedDuration.minutes === duration.minutes
@@ -88,72 +104,49 @@ export function ServiceCard({ service, showHappyHour = false }: ServiceCardProps
         <div className="flex items-end justify-between mb-4">
           <div>
             <p className="text-xs text-foreground/50 mb-1">Harga</p>
-            <div className="flex items-baseline gap-2">
+            <div className="flex items-baseline gap-2 overflow-hidden h-8">
               {showHappyHour ? (
                 <>
-                  <span className="text-2xl font-bold text-primary">
+                  <span
+                    key={selectedDuration.happyHourPrice}
+                    className={cn(
+                      "text-2xl font-bold text-primary inline-block",
+                      isAnimating && "animate-price-scroll"
+                    )}
+                  >
                     IDR {selectedDuration.happyHourPrice}K
                   </span>
-                  <span className="text-sm text-foreground/40 line-through">
+                  <span
+                    key={`strike-${selectedDuration.price}`}
+                    className={cn(
+                      "text-sm text-foreground/40 line-through inline-block",
+                      isAnimating && "animate-price-scroll"
+                    )}
+                  >
                     IDR {selectedDuration.price}K
                   </span>
                 </>
               ) : (
-                <span className="text-2xl font-bold text-primary">
+                <span
+                  key={selectedDuration.price}
+                  className={cn(
+                    "text-2xl font-bold text-primary inline-block",
+                    isAnimating && "animate-price-scroll"
+                  )}
+                >
                   IDR {selectedDuration.price}K
                 </span>
               )}
             </div>
           </div>
-          <div className="flex items-center gap-1 text-sm text-foreground/60">
+          <div className={cn(
+            "flex items-center gap-1 text-sm text-foreground/60",
+            isAnimating && "animate-price-scroll"
+          )}>
             <Clock className="w-4 h-4" />
             {selectedDuration.minutes} menit
           </div>
         </div>
-
-        {/* Expand/Collapse for more details */}
-        <button
-          onClick={() => setIsExpanded(!isExpanded)}
-          className="flex items-center gap-1 text-sm text-primary hover:text-primary-dark mb-4"
-        >
-          {isExpanded ? (
-            <>
-              Sembunyikan detail <ChevronUp className="w-4 h-4" />
-            </>
-          ) : (
-            <>
-              Lihat semua durasi <ChevronDown className="w-4 h-4" />
-            </>
-          )}
-        </button>
-
-        {/* Expanded Content */}
-        {isExpanded && (
-          <div className="mb-4 p-4 rounded-xl bg-background-light animate-fade-in">
-            <table className="w-full text-sm">
-              <thead>
-                <tr className="text-foreground/50">
-                  <th className="text-left pb-2">Durasi</th>
-                  <th className="text-right pb-2">Harga</th>
-                  {showHappyHour && <th className="text-right pb-2">Happy Hour</th>}
-                </tr>
-              </thead>
-              <tbody>
-                {service.durations.map((d) => (
-                  <tr key={d.minutes} className="border-t border-border/50">
-                    <td className="py-2">{d.minutes} menit</td>
-                    <td className="text-right py-2">IDR {d.price}K</td>
-                    {showHappyHour && (
-                      <td className="text-right py-2 text-accent font-medium">
-                        IDR {d.happyHourPrice}K
-                      </td>
-                    )}
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        )}
 
         {/* CTA */}
         <Link href={`/reservasi?service=${service.id}&duration=${selectedDuration.minutes}`}>
