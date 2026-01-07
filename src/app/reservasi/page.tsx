@@ -80,7 +80,7 @@ function BookingContent() {
     return isHappyHour() ? selectedDuration.happyHourPrice : selectedDuration.price;
   };
 
-  // Reusable scroll utility
+  // Reusable scroll utility - scrolls element to top with offset
   const scrollToElement = (ref: React.RefObject<HTMLElement | HTMLDivElement | null>, offset = 140) => {
     setTimeout(() => {
       if (ref.current) {
@@ -91,36 +91,49 @@ function BookingContent() {
     }, 50);
   };
 
-  // Step 1: Branch selection → scroll to Lanjut button
+  // Scroll to show element at bottom of viewport
+  const scrollToShowAtBottom = (ref: React.RefObject<HTMLElement | HTMLDivElement | null>, bottomPadding = 20) => {
+    setTimeout(() => {
+      if (ref.current) {
+        const elementRect = ref.current.getBoundingClientRect();
+        const elementBottom = elementRect.bottom + window.scrollY;
+        const targetScroll = elementBottom - window.innerHeight + bottomPadding;
+        if (targetScroll > window.scrollY) {
+          window.scrollTo({ top: targetScroll, behavior: 'smooth' });
+        }
+      }
+    }, 50);
+  };
+
+  // Step 1: Branch selection (no auto-scroll)
   const handleBranchSelect = (branchId: string) => {
     setFormData({ ...formData, branchId });
-    scrollToElement(navigationRef, 450);
   };
 
-  // Step 2: Service selection → scroll to duration section
+  // Step 2: Service selection → scroll to show Lanjut button at bottom
   const handleServiceSelect = (serviceId: string) => {
     setFormData({ ...formData, serviceId, duration: 0 });
-    scrollToElement(durationSectionRef, 250);
+    scrollToShowAtBottom(navigationRef);
   };
 
-  // Step 2: Duration selection → scroll to Lanjut button
+  // Step 2: Duration selection → scroll to show Lanjut button at bottom
   const handleDurationSelect = (duration: number) => {
     setFormData({ ...formData, duration });
-    scrollToElement(navigationRef, 450);
+    scrollToShowAtBottom(navigationRef);
   };
 
-  // Step 3: Date selection → scroll to time slots
+  // Step 3: Date selection → scroll to show Lanjut button at bottom
   const handleDateSelect = (date: Date | undefined) => {
     setFormData({ ...formData, date, time: '' });
     if (date) {
-      scrollToElement(timeSlotsRef, 250);
+      scrollToShowAtBottom(navigationRef);
     }
   };
 
-  // Step 3: Time selection → scroll to Lanjut button
+  // Step 3: Time selection → scroll to show Lanjut button at bottom
   const handleTimeSelect = (time: string) => {
     setFormData({ ...formData, time });
-    scrollToElement(navigationRef, 450);
+    scrollToShowAtBottom(navigationRef);
   };
 
   // Navigation between steps → scroll to form top
@@ -448,6 +461,7 @@ function BookingContent() {
                       placeholder="Nama Anda"
                       value={formData.name}
                       onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                      onFocus={() => scrollToShowAtBottom(navigationRef)}
                       className="pl-12 bg-background-light border-border"
                     />
                   </div>
@@ -464,6 +478,7 @@ function BookingContent() {
                       placeholder="08xx xxxx xxxx"
                       value={formData.phone}
                       onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                      onFocus={() => scrollToShowAtBottom(navigationRef)}
                       className="pl-12 bg-background-light border-border"
                     />
                   </div>
@@ -477,6 +492,7 @@ function BookingContent() {
                     placeholder="Permintaan khusus atau catatan lainnya..."
                     value={formData.notes}
                     onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
+                    onFocus={() => scrollToShowAtBottom(navigationRef)}
                     rows={4}
                     className="bg-background-light border-border resize-none"
                   />
